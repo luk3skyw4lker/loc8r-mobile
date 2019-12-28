@@ -80,7 +80,7 @@ export default class Home extends Component {
                           {
                             location.facilities.map((facility, index) => {
                               return (
-                                <View style={styles.facilityBox}>
+                                <View style={styles.facilityBox} key={index}>
                                   <Text style={styles.facilityText}>{index === 0 ? facility : facility.substr(1)}</Text>
                                 </View>
                               )

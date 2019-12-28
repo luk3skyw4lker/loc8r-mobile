@@ -54,6 +54,7 @@ export default class Locations extends Component {
                   })
                 }
               </View>
+              {/* TODO: Implement Maps Static Image */}
               <Text style={[styles.locationName, { fontSize: 35 }]}>MAPS GOES HERE</Text>
             </Fragment>
           ) : (
