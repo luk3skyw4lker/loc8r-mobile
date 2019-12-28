@@ -56,6 +56,19 @@ export default class Locations extends Component {
               </View>
               {/* TODO: Implement Maps Static Image */}
               <Text style={[styles.locationName, { fontSize: 35 }]}>MAPS GOES HERE</Text>
+              <View style={styles.reviewBox}>
+                <Text style={[styles.locationName, { fontSize: 25 }]}>Customer Reviews</Text>
+                {
+                  locationDetails.reviews.map((review, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <Text style={styles.text}>{review.author} {new Date(review.createdOn).toDateString()}</Text>
+                        <Text style={styles.text}>{review.reviewText}</Text>
+                      </Fragment>
+                    )
+                  })
+                }
+              </View>
             </Fragment>
           ) : (
               <Text style={styles.text}>Getting locations details...</Text>
@@ -75,7 +88,8 @@ const styles = StyleSheet.create({
 
   text: {
     fontWeight: 'bold',
-    color: '#fff'
+    color: '#fff',
+    fontSize: 20
   },
 
   locationName: {
@@ -98,5 +112,12 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     fontSize: 10,
+  },
+
+  reviewBox: {
+    borderColor: '#fff',
+    borderWidth: 1,
+    backgroundColor: '#469ea8',
+    padding: 5
   }
 })
