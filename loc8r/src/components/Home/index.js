@@ -72,19 +72,21 @@ export default class Home extends Component {
               locations.length > 0 ? (
                 locations.map((location) => {
                   return (
-                    <TouchableNativeFeedback onPress={() => this.handlePress(location.id)}>
-                      <View key={location.id} style={styles.locationBox}>
+                    <TouchableNativeFeedback key={location.id} onPress={() => this.handlePress(location.id)}>
+                      <View style={styles.locationBox}>
                         <Text style={styles.locationName}>{location.name}</Text>
                         <Text style={[styles.locationName, { fontSize: 15 }]}>{location.address}</Text>
-                        {
-                          location.facilities.map((facility, index) => {
-                            return (
-                              <View style={styles.facilityBox}>
-                                <Text style={[styles.locationName, { fontSize: 10 }]}>{index === 0 ? ` ${facility}` : facility}</Text>
-                              </View>
-                            )
-                          })
-                        }
+                        <View style={{ flexDirection: 'row' }}>
+                          {
+                            location.facilities.map((facility, index) => {
+                              return (
+                                <View style={styles.facilityBox}>
+                                  <Text style={styles.facilityText}>{index === 0 ? facility : facility.substr(1)}</Text>
+                                </View>
+                              )
+                            })
+                          }
+                        </View>
                       </View>
                     </TouchableNativeFeedback>
                   )
@@ -146,23 +148,34 @@ const styles = StyleSheet.create({
   locationBox: {
     padding: 5,
     width: 350,
-    height: 110,
-    borderColor: '#fff',
+    height: 105,
+    borderColor: '#000',
     borderRadius: 5,
-    borderWidth: 3,
-    marginBottom: 5
+    borderWidth: 2,
+    marginBottom: 5,
+    backgroundColor: '#469ea8'
   },
 
   locationName: {
     textAlign: 'left',
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#fff'
+    color: '#fff',
+    marginBottom: 3
   },
 
   facilityBox: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    backgroundColor: '#ffc107',
+    padding: 4,
+    marginRight: 5,
+    marginTop: 5,
+    borderRadius: 5
+  },
+
+  facilityText: {
+    color: '#000',
+    fontWeight: 'bold',
+    fontSize: 10,
   }
 });
