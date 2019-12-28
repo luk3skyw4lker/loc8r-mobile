@@ -71,7 +71,6 @@ export default class Home extends Component {
           ) : (
               locations.length > 0 ? (
                 locations.map((location) => {
-                  console.log(location.facilities);
                   return (
                     <TouchableNativeFeedback onPress={() => this.handlePress(location.id)}>
                       <View key={location.id} style={styles.locationBox}>
