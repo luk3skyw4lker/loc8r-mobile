@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 
 import api from '../../services/api';
+import starThin from '../../assets/starThin.png';
+import { STATIC_API_KEY } from 'react-native-dotenv';
 
 export default class Locations extends Component {
   constructor(props) {
@@ -33,7 +35,8 @@ export default class Locations extends Component {
   render() {
     const { locationDetails } = this.state;
 
-    console.log(locationDetails);
+    console.log(locationDetails.coords);
+    console.log(STATIC_API_KEY);
 
     return (
       <View style={locationDetails !== '' ? styles.container : [styles.container, { justifyContent: 'center' }]}>
@@ -41,8 +44,9 @@ export default class Locations extends Component {
           locationDetails !== '' ? (
             <Fragment>
               <Text style={styles.locationName}>{locationDetails.name}</Text>
-              {/* // TODO: Implement star icons later */}
-              <Text style={[styles.locationName, { fontSize: 20 }]}>STARS GOES HERE: {locationDetails.rating}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                {Array.from({ length: locationDetails.rating }, (...args) => <Image key={args[1]} style={styles.starTop} source={starThin} />)}
+              </View>
               <View style={{ flexDirection: 'row' }}>
                 {
                   locationDetails.facilities.map((facility, index) => {
@@ -54,17 +58,20 @@ export default class Locations extends Component {
                   })
                 }
               </View>
-              {/* TODO: Implement Maps Static Image */}
-              <Text style={[styles.locationName, { fontSize: 35 }]}>MAPS GOES HERE</Text>
+              <Image
+                source={{ uri: `https://maps.googleapis.com/maps/api/staticmap?center=${locationDetails.coords.coordinates[1]},${locationDetails.coords.coordinates[0]}&zoom=17&size=350x350&sensor=false&markers=${locationDetails.coords.coordinates[1]},${locationDetails.coords.coordinates[0]}&key${STATIC_API_KEY}=&scale=2` }}
+                style={{ height: 350, width: 350, marginTop: 10 }}
+              />
               <View style={styles.reviewBox}>
                 <Text style={[styles.locationName, { fontSize: 25 }]}>Customer Reviews</Text>
                 {
                   locationDetails.reviews.map((review, index) => {
                     return (
-                      <Fragment key={index}>
-                        <Text style={styles.text}>{review.author} {new Date(review.createdOn).toDateString()}</Text>
-                        <Text style={styles.text}>{review.reviewText}</Text>
-                      </Fragment>
+                      <View key={index} style={{ borderWidth: 1, borderColor: '#000' }}>
+                        <Text style={[styles.text, { fontSize: 17, paddingLeft: 3 }]}>{review.author} {new Date(review.createdOn).toDateString()}</Text>
+                        <View style={{ flexDirection: 'row', paddingLeft: 3 }}>{Array.from({ length: review.rating }, (...args) => <Image key={args[1]} style={styles.starReview} source={starThin} />)}</View>
+                        <Text style={[styles.text, { fontSize: 17, paddingLeft: 3 }]}>{review.reviewText}</Text>
+                      </View>
                     )
                   })
                 }
@@ -83,7 +90,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#108a93',
-    padding: 30
+    padding: 20,
+    paddingTop: 10,
   },
 
   text: {
@@ -115,9 +123,21 @@ const styles = StyleSheet.create({
   },
 
   reviewBox: {
-    borderColor: '#fff',
-    borderWidth: 1,
+    borderColor: '#222',
+    borderWidth: 3,
     backgroundColor: '#469ea8',
-    padding: 5
+    padding: 5,
+    marginTop: 15,
+    width: 350
+  },
+
+  starReview: {
+    width: 15,
+    height: 15
+  },
+
+  starTop: {
+    width: 25,
+    height: 25
   }
 })
