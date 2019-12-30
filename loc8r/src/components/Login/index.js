@@ -7,10 +7,8 @@ import {
   StyleSheet,
   Text,
   Image,
-  View,
-  PermissionsAndroid
+  View
 } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
 
 import api from '../../services/api';
 import logo from '../../assets/Loc8r.png';
@@ -90,7 +88,7 @@ export default class Login extends Component {
 
         <TextInput
           name="email"
-          style={styles.emailInput}
+          style={styles.input}
           autoCorrect={false}
           autoCapitalize='none'
           placeholder="Digite seu email"
@@ -101,7 +99,7 @@ export default class Login extends Component {
 
         <TextInput
           name="password"
-          style={styles.passwordInput}
+          style={[styles.input, { marginTop: 5 }]}
           autoCorrect={false}
           autoCapitalize='none'
           placeholder="Digite sua senha"
@@ -128,39 +126,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#108a93',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 30
+    padding: 30,
+    paddingTop: 0
   },
 
-  emailInput: {
+  input: {
     height: 46,
     alignSelf: 'stretch',
     backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderWidth: 1.5,
+    borderColor: '#000',
     borderRadius: 5,
     marginTop: 25,
-    paddingHorizontal: 15
-  },
-
-  passwordInput: {
-    height: 46,
-    alignSelf: 'stretch',
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    marginTop: 5,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    elevation: 5
   },
 
   button: {
     height: 46,
-    width: 100,
+    width: 180,
     backgroundColor: '#A92323',
     borderRadius: 25,
     marginTop: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    elevation: 5
   },
 
   buttonText: {
@@ -171,9 +161,10 @@ const styles = StyleSheet.create({
 
   image: {
     alignSelf: 'center',
-    width: 150,
-    height: 65,
-    marginBottom: 60
+    width: 200,
+    height: 100,
+    marginBottom: 100,
+    marginTop: -20
   },
 
   errorText: {

@@ -149,11 +149,12 @@ const styles = StyleSheet.create({
     padding: 5,
     width: 350,
     height: 105,
-    borderColor: '#000',
+    borderColor: '#fff',
     borderRadius: 5,
     borderWidth: 2,
-    marginBottom: 5,
-    backgroundColor: '#469ea8'
+    marginBottom: 8,
+    backgroundColor: '#469ea8',
+    elevation: 8
   },
 
   locationName: {

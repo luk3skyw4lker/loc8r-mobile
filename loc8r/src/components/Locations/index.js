@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 
 import api from '../../services/api';
-import starThin from '../../assets/starThin.png';
+import star from '../../assets/star.png';
 import { STATIC_API_KEY } from 'react-native-dotenv';
 
 export default class Locations extends Component {
@@ -35,17 +35,17 @@ export default class Locations extends Component {
   render() {
     const { locationDetails } = this.state;
 
-    console.log(locationDetails.coords);
-    console.log(STATIC_API_KEY);
+    // console.log(locationDetails.coords);
+    // console.log(STATIC_API_KEY);
 
     return (
-      <View style={locationDetails !== '' ? styles.container : [styles.container, { justifyContent: 'center' }]}>
+      <View style={locationDetails !== '' ? styles.container : [styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
         {
           locationDetails !== '' ? (
             <Fragment>
               <Text style={styles.locationName}>{locationDetails.name}</Text>
               <View style={{ flexDirection: 'row' }}>
-                {Array.from({ length: locationDetails.rating }, (...args) => <Image key={args[1]} style={styles.starTop} source={starThin} />)}
+                {Array.from({ length: locationDetails.rating }, (...args) => <Image key={args[1]} style={styles.starTop} source={star} />)}
               </View>
               <View style={{ flexDirection: 'row' }}>
                 {
@@ -60,16 +60,16 @@ export default class Locations extends Component {
               </View>
               <Image
                 source={{ uri: `https://maps.googleapis.com/maps/api/staticmap?center=${locationDetails.coords.coordinates[1]},${locationDetails.coords.coordinates[0]}&zoom=17&size=350x350&sensor=false&markers=${locationDetails.coords.coordinates[1]},${locationDetails.coords.coordinates[0]}&key${STATIC_API_KEY}=&scale=2` }}
-                style={{ height: 350, width: 350, marginTop: 10 }}
+                style={{ height: 350, width: 350, marginTop: 10, borderRadius: 5 }}
               />
               <View style={styles.reviewBox}>
                 <Text style={[styles.locationName, { fontSize: 25 }]}>Customer Reviews</Text>
                 {
                   locationDetails.reviews.map((review, index) => {
                     return (
-                      <View key={index} style={{ borderWidth: 1, borderColor: '#000' }}>
+                      <View key={index} style={{ borderWidth: 1.5, borderColor: '#ddd', borderRadius: 5 }}>
                         <Text style={[styles.text, { fontSize: 17, paddingLeft: 3 }]}>{review.author} {new Date(review.createdOn).toDateString()}</Text>
-                        <View style={{ flexDirection: 'row', paddingLeft: 3 }}>{Array.from({ length: review.rating }, (...args) => <Image key={args[1]} style={styles.starReview} source={starThin} />)}</View>
+                        <View style={{ flexDirection: 'row', paddingLeft: 3 }}>{Array.from({ length: review.rating }, (...args) => <Image key={args[1]} style={styles.starReview} source={star} />)}</View>
                         <Text style={[styles.text, { fontSize: 17, paddingLeft: 3 }]}>{review.reviewText}</Text>
                       </View>
                     )
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#108a93',
     padding: 20,
-    paddingTop: 10,
+    paddingTop: 5,
   },
 
   text: {
@@ -124,7 +124,8 @@ const styles = StyleSheet.create({
 
   reviewBox: {
     borderColor: '#222',
-    borderWidth: 3,
+    borderWidth: 2,
+    borderRadius: 5,
     backgroundColor: '#469ea8',
     padding: 5,
     marginTop: 15,
@@ -133,11 +134,15 @@ const styles = StyleSheet.create({
 
   starReview: {
     width: 15,
-    height: 15
+    height: 15,
+    marginRight: 3.5
   },
 
   starTop: {
     width: 25,
-    height: 25
+    height: 25,
+    marginRight: 3.5,
+    marginBottom: 5,
+    marginTop: 5
   }
 })
