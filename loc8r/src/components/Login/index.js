@@ -49,7 +49,10 @@ export default class Login extends Component {
     }
 
     const { navigation } = this.props;
-    const response = await api.post('/login', { email: this.state.email, password: this.state.password });
+    const response = await api.post('/login', {
+      email: this.state.email,
+      password: this.state.password
+    });
 
     const { status } = response;
 
@@ -57,40 +60,33 @@ export default class Login extends Component {
       navigation.navigate('Home');
     } else if (status === 404) {
       this.setState({
-        error: 'User doesn\'t exists'
+        error: "User doesn't exists"
       });
     } else {
       this.setState({
         error: 'Unknown error'
-      })
+      });
     }
   }
 
   render() {
     return (
       <KeyboardAvoidingView
-        enabled={
-          Platform.OS === 'ios'
-        }
-        behavior='padding'
-        style={styles.container}
-      >
-
+        enabled={Platform.OS === 'ios'}
+        behavior="padding"
+        style={styles.container}>
         <Image source={logo} style={styles.image} />
-        {
-          this.state.error !== null &&
+        {this.state.error !== null && (
           <View style={styles.error}>
-            <Text style={styles.errorText}>
-              {this.state.error}
-            </Text>
+            <Text style={styles.errorText}>{this.state.error}</Text>
           </View>
-        }
+        )}
 
         <TextInput
           name="email"
           style={styles.input}
           autoCorrect={false}
-          autoCapitalize='none'
+          autoCapitalize="none"
           placeholder="Digite seu email"
           placeholderTextColor="#999"
           onChangeText={this.handleEmailChange}
@@ -101,7 +97,7 @@ export default class Login extends Component {
           name="password"
           style={[styles.input, { marginTop: 5 }]}
           autoCorrect={false}
-          autoCapitalize='none'
+          autoCapitalize="none"
           placeholder="Digite sua senha"
           placeholderTextColor="#999"
           onChangeText={this.handlePasswordChange}
@@ -109,10 +105,7 @@ export default class Login extends Component {
           secureTextEntry={true}
         />
 
-        <TouchableOpacity
-          onPress={this.handleLogin}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={this.handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>

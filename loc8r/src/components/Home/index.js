@@ -20,18 +20,21 @@ export default class Home extends Component {
   async componentDidMount() {
     Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
-        console.log('Success!');
-        this.setState({
-          region: {
-            lat: latitude,
-            lng: longitude
-          }
-        }, getLocations);
+        this.setState(
+          {
+            region: {
+              lat: latitude,
+              lng: longitude
+            }
+          },
+          getLocations
+        );
       },
-      (err) => {
+      err => {
         console.log(err);
         this.setState({
-          error: 'Could not get location info, clean the application data and open the app again'
+          error:
+            'Could not get location info, clean the application data and open the app again'
         });
       },
       {
@@ -42,60 +45,71 @@ export default class Home extends Component {
     );
 
     const getLocations = async () => {
-      const url = `/locations?lng=${this.state.region.lng}&lat=${this.state.region.lat}&maxDistance=20`;
+      const url = `/locations?lng=${this.state.region.lng}&lat=${
+        this.state.region.lat
+      }&maxDistance=20`;
 
       const response = await api.get(url);
 
       this.setState({
         locations: response.data
       });
-    }
+    };
   }
 
   handlePress(locationId) {
     const { navigation } = this.props;
 
-    this.setState({
-      locationId
-    }, () => navigation.navigate('Locations', { locationId: this.state.locationId }));
+    this.setState(
+      {
+        locationId
+      },
+      () =>
+        navigation.navigate('Locations', { locationId: this.state.locationId })
+    );
   }
 
   render() {
     const { locations, error } = this.state;
 
     return (
-      <View style={locations.length > 0 ? styles.container : [styles.container, { justifyContent: 'center' }]}>
-        {
-          error !== null ? (
-            <Text style={styles.errorText}>{error}</Text>
-          ) : (
-              locations.length > 0 ? (
-                locations.map((location) => {
-                  return (
-                    <TouchableNativeFeedback key={location.id} onPress={() => this.handlePress(location.id)}>
-                      <View style={styles.locationBox}>
-                        <Text style={styles.locationName}>{location.name}</Text>
-                        <Text style={[styles.locationName, { fontSize: 15 }]}>{location.address}</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                          {
-                            location.facilities.map((facility, index) => {
-                              return (
-                                <View style={styles.facilityBox} key={index}>
-                                  <Text style={styles.facilityText}>{index === 0 ? facility : facility.substr(1)}</Text>
-                                </View>
-                              )
-                            })
-                          }
+      <View
+        style={
+          locations.length > 0
+            ? styles.container
+            : [styles.container, { justifyContent: 'center' }]
+        }>
+        {error !== null ? (
+          <Text style={styles.errorText}>{error}</Text>
+        ) : locations.length > 0 ? (
+          locations.map(location => {
+            return (
+              <TouchableNativeFeedback
+                key={location.id}
+                onPress={() => this.handlePress(location.id)}>
+                <View style={styles.locationBox}>
+                  <Text style={styles.locationName}>{location.name}</Text>
+                  <Text style={[styles.locationName, { fontSize: 15 }]}>
+                    {location.address}
+                  </Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    {location.facilities.map((facility, index) => {
+                      return (
+                        <View style={styles.facilityBox} key={index}>
+                          <Text style={styles.facilityText}>
+                            {index === 0 ? facility : facility.substr(1)}
+                          </Text>
                         </View>
-                      </View>
-                    </TouchableNativeFeedback>
-                  )
-                })
-              ) : (
-                  <Text style={styles.buttonText}>Getting locations...</Text>
-                )
-            )
-        }
+                      );
+                    })}
+                  </View>
+                </View>
+              </TouchableNativeFeedback>
+            );
+          })
+        ) : (
+          <Text style={styles.buttonText}>Getting locations...</Text>
+        )}
       </View>
     );
   }
@@ -177,6 +191,6 @@ const styles = StyleSheet.create({
   facilityText: {
     color: '#000',
     fontWeight: 'bold',
-    fontSize: 10,
+    fontSize: 10
   }
 });
