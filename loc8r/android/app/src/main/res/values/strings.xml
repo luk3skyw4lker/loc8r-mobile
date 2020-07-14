@@ -1,3 +1,7 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">loc8r</string>
+=======
+    <string name="app_name">Loc8r</string>
+>>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 </resources>

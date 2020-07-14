@@ -10,6 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@react-native-community/async-storage": "^1.7.1",
+>>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
     "@react-native-community/geolocation": "^2.0.2",
     "axios": "^0.19.0",
     "react": "16.9.0",

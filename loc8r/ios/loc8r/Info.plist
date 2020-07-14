@@ -54,6 +54,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIAppFonts</key>
+<<<<<<< HEAD
 	<array/>
+=======
+	<array>
+		<string>Lobster-Regular.ttf</string>
+	</array>
+>>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 </dict>
 </plist>
