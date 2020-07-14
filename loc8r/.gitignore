@@ -41,10 +41,7 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
-<<<<<<< HEAD
-=======
 android/gradle.properties
->>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 
 # fastlane
 #

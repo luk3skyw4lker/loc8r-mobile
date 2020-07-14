@@ -16,10 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* loc8rTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* loc8rTests.m */; };
-<<<<<<< HEAD
-=======
 		3DF75191B80B425AA2A9E404 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5E847F4B0D74D0A9B30E682 /* Lobster-Regular.ttf */; };
->>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +52,7 @@
 		2D02E4901E0B4A5D006451C7 /* loc8r-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "loc8r-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-<<<<<<< HEAD
-=======
 		C5E847F4B0D74D0A9B30E682 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; name = "Lobster-Regular.ttf"; path = "../src/assets/fonts/Lobster-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
->>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,10 +163,7 @@
 		81FA5D1C64344C73B96ED884 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-<<<<<<< HEAD
-=======
 				C5E847F4B0D74D0A9B30E682 /* Lobster-Regular.ttf */,
->>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -314,10 +305,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-<<<<<<< HEAD
-=======
 				3DF75191B80B425AA2A9E404 /* Lobster-Regular.ttf in Resources */,
->>>>>>> bb51e2cd17157e74aa1cff3aa008e04bf0c8bbb9
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
