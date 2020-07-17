@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 import com.android.build.OutputFile
 def API_KEY = System.getenv("GOOGLE_API_KEY")
@@ -191,6 +192,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.appcompat:appcompat:1.1.0-rc01"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02"
+
+    addUnimodulesDependencies()
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
