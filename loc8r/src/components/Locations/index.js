@@ -1,5 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions
+} from 'react-native';
 
 import api from '../../services/api';
 import star from '../../assets/star.png';
@@ -38,17 +45,15 @@ export default class Locations extends Component {
     const { locationDetails } = this.state;
 
     return (
-      <View
-        style={
-          locationDetails !== ''
-            ? styles.container
-            : [
-                styles.container,
-                { justifyContent: 'center', alignItems: 'center' }
-              ]
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={
+          locationDetails === ''
+            ? { justifyContent: 'center', alignItems: 'center' }
+            : {}
         }>
         {locationDetails !== '' ? (
-          <Fragment>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.locationName}>{locationDetails.name}</Text>
             <View style={{ flexDirection: 'row' }}>
               {Array.from({ length: locationDetails.rating }, (...args) => (
@@ -57,6 +62,17 @@ export default class Locations extends Component {
             </View>
             <View style={{ flexDirection: 'row' }}>
               {locationDetails.facilities.map((facility, index) => {
+                console.log(
+                  `https://maps.googleapis.com/maps/api/staticmap?center=${
+                    locationDetails.coords.coordinates[1]
+                  },${
+                    locationDetails.coords.coordinates[0]
+                  }&zoom=17&size=350x350&sensor=false&markers=${
+                    locationDetails.coords.coordinates[1]
+                  },${
+                    locationDetails.coords.coordinates[0]
+                  }&key${STATIC_API_KEY}=&scale=2`
+                );
                 return (
                   <View style={styles.facilityBox} key={index}>
                     <Text style={styles.facilityText}>
@@ -76,7 +92,7 @@ export default class Locations extends Component {
                   locationDetails.coords.coordinates[1]
                 },${
                   locationDetails.coords.coordinates[0]
-                }&key${STATIC_API_KEY}=&scale=2`
+                }&key=${STATIC_API_KEY}&scale=2`
               }}
               style={{
                 height: 350,
@@ -120,11 +136,17 @@ export default class Locations extends Component {
                 );
               })}
             </View>
-          </Fragment>
+          </View>
         ) : (
-          <Text style={styles.text}>Getting locations details...</Text>
+          <Text
+            style={[
+              styles.text,
+              { marginTop: Dimensions.get('screen').height / 2.5 }
+            ]}>
+            Getting locations details...
+          </Text>
         )}
-      </View>
+      </ScrollView>
     );
   }
 }

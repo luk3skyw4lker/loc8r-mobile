@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  PermissionsAndroid
+} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 
 import api from '../../services/api';
 
@@ -10,39 +16,66 @@ export default class Home extends Component {
     this.state = {
       region: '',
       locations: [],
-      error: null,
-      locationId: ''
+      error: null
     };
 
     this.handlePress = this.handlePress.bind(this);
   }
 
   async componentDidMount() {
-    Geolocation.getCurrentPosition(
-      ({ coords: { latitude, longitude } }) => {
-        this.setState(
-          {
-            region: {
-              lat: latitude,
-              lng: longitude
-            }
-          },
-          getLocations
-        );
-      },
-      err => {
-        console.log(err);
+    const askGeolocation = () => {
+      Geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          this.setState(
+            {
+              region: {
+                lat: latitude,
+                lng: longitude
+              }
+            },
+            getLocations
+          );
+        },
+        err => {
+          console.log(err);
+          this.setState({
+            error:
+              'Could not get location info, clean the application data and open the app again'
+          });
+        },
+        {
+          timeout: 5000,
+          enableHighAccuracy: true
+        }
+      );
+    };
+
+    const hasCoarse = await PermissionsAndroid.check(
+      'android.permission.ACCESS_COARSE_LOCATION'
+    );
+    const hasFine = await PermissionsAndroid.check(
+      'android.permission.ACCESS_FINE_LOCATION'
+    );
+
+    if (hasCoarse && hasFine) {
+      askGeolocation();
+    } else {
+      const coarse = await PermissionsAndroid.request(
+        'android.permifssion.ACCESS_COARSE_LOCATION'
+      );
+      const fine = await PermissionsAndroid.request(
+        'android.permission.ACCESS_FINE_LOCATION'
+      );
+
+      if (coarse && fine) {
+        askGeolocation();
+      } else {
         this.setState({
           error:
-            'Could not get location info, clean the application data and open the app again'
+            'Could not get location info, the app must have all permissions'
         });
-      },
-      {
-        timeout: 10000,
-        maximumAge: 1000,
-        enableHighAccuracy: true
       }
-    );
+    }
 
     const getLocations = async () => {
       const url = `/locations?lng=${this.state.region.lng}&lat=${
@@ -60,13 +93,7 @@ export default class Home extends Component {
   handlePress(locationId) {
     const { navigation } = this.props;
 
-    this.setState(
-      {
-        locationId
-      },
-      () =>
-        navigation.navigate('Locations', { locationId: this.state.locationId })
-    );
+    navigation.navigate('Locations', { locationId });
   }
 
   render() {
