@@ -1,0 +1,12 @@
+{
+  "name": "loc8r-mobile",
+  "displayName": "loc8r-mobile",
+  "expo": {
+    "name": "loc8r-mobile",
+    "slug": "loc8r-mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
